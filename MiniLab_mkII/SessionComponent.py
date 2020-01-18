@@ -65,6 +65,9 @@ class SessionComponent(SessionComponentBase):
         assert not leds or leds.width() == self._num_tracks and leds.height() == self._num_scenes
         if leds:
             for led, (x, y) in leds.iterbuttons():
+                # skip this to keep 2nd bank without LEDs
+                if y > 0:
+                    return
                 scene = self.scene(y)
                 slot = scene.clip_slot(x)
                 slot.set_led(led)
